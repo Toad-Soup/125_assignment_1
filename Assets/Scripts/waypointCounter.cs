@@ -4,6 +4,8 @@ public class waypointCounter : MonoBehaviour
 {
 
     public waypointCounter next;
+    public MeshRenderer left;
+    public MeshRenderer right;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,9 +25,19 @@ public class waypointCounter : MonoBehaviour
         if (vehicle != null && vehicle.next == this)
         {
             vehicle.next = this.next;
-            Debug.Log("bruh");
+            next.left.materials[0].color = Color.red;
+            next.right.materials[0].color = Color.red;
+            left.materials[0].color = Color.white;
+            right.materials[0].color = Color.white;
         }
         //Debug.Log("trigger enter " + other.transform.name);
+
+        //need to check if the thing entered is the first waypoint (menaing one lap complete)
+        if (vehicle.next == vehicle.target)
+        {
+            Debug.Log("updating lap");
+            vehicle.updateLap();
+        }
     }
 
 }
