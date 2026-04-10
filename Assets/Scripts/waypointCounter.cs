@@ -22,7 +22,8 @@ public class waypointCounter : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var vehicle = other.gameObject.GetComponent<VehicleController>();
-        if (vehicle != null && vehicle.next == this)
+        if (vehicle == null) return;
+        if (vehicle.next == this)
         {
             vehicle.next = this.next;
             next.left.materials[0].color = Color.red;
@@ -33,7 +34,7 @@ public class waypointCounter : MonoBehaviour
         //Debug.Log("trigger enter " + other.transform.name);
 
         //need to check if the thing entered is the first waypoint (menaing one lap complete)
-        if (vehicle.next == vehicle.target)
+        if (vehicle.target == this.next)
         {
             Debug.Log("updating lap");
             vehicle.updateLap();
